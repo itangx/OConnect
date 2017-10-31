@@ -11,7 +11,7 @@
     <div class="login-page">
         <div class="form">
           <form class="login-form">
-            <p class="topic">Activate User</p><br>
+            <p class="topic">Activated User</p><br>
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Old Password" />
             <input type="password" placeholder="Re-Old Password" />
