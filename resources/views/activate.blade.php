@@ -1,26 +1,67 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<!DOCTYPE html>
+<html >
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OConnect</title>
-    <link href="{!! URL::asset('/css/style.css') !!}" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <title>Login</title>
+  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+      <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+      <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
 </head>
+
 <body>
-    <div class="login-page">
-        <div class="form">
-          <form class="login-form">
-            <p class="topic">Activate User</p><br>
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Old Password" />
-            <input type="password" placeholder="Re-Old Password" />
-            <input type="password" placeholder="New Password" />
-            <input type="password" placeholder="Re-New Password" />
-            <button>Submit</button>
-            <p class="message"><a href="/">Back to Login Page (For Testing)</a></p>
-        </form>
-        </div>
-    </div>
+  
+
+<div class="pen-title">
+  <h1>OConnect</h1>
+</div>
+<div class="container">
+  <div class="card"></div>
+  <div class="card">
+    <h1 class="title">Activated User</h1>
+    <form>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" required="required"/>
+        <label for="#{label}">Username</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" required="required"/>
+        <label for="#{label}">Old Password</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" required="required"/>
+        <label for="#{label}">Re-Old Password</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" required="required"/>
+        <label for="#{label}">New Password</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" required="required"/>
+        <label for="#{label}">Re-New Password</label>
+        <div class="bar"></div>
+      </div>
+      <div class="button-container">
+        <button><span>Submit</span></button>
+      </div>
+      <div class="footer"><a href="/">Go To Login (For Testing)</a></div>
+    
+    </form>
+  </div>
+  
+    
+  </div>
+</div>
+
+ 
 </body>
 </html>
