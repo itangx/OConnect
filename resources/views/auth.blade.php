@@ -1,53 +1,29 @@
-<!DOCTYPE html>
-<html >
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-
-      <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
-      <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-
-      <link rel="stylesheet" href="css/style.css">
-
-  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OConnect</title>
+    <link href="{!! URL::asset('css/style.css') !!}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-  
+    <div class="login-page">
+      <div class="form">
+        <form class="login-form">
+            <p class="topic">OConnect</p><br>
+            <input type="text" placeholder="Username" />
+            <input type="password" placeholder="Password" />
+            <button>login</button>
+            <p class="message"><a href="#">Reset Password</a></p>
+            <p class="message">Sign in to meet your partners!</p>
+            <p class="message"><a href="/activate">Go to Activate Page (For Testing)</a></p>
+        </form>
+      </div>
 
-<div class="pen-title">
-  <h1>OConnect</h1>
-</div>
-<div class="container">
-  <div class="card"></div>
-  <div class="card">
-    <h1 class="title">Login</h1>
-    <form>
-      <div class="input-container">
-        <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Username</label>
-        <div class="bar"></div>
-      </div>
-      <div class="input-container">
-        <input type="#{type}" id="#{label}" required="required"/>
-        <label for="#{label}">Password</label>
-        <div class="bar"></div>
-      </div>
-      <div class="button-container">
-        <button><span>LOGIN</span></button>
-      </div>
-      <div class="footer"><a href="#">Reset Password</a></div>
-      <div class="footer"><a href="/activate">Go To Activate (For Testing)</a></div>
+    </div>
     
-    </form>
-  </div>
-  
-    
-  </div>
-</div>
 
- 
 </body>
 </html>
