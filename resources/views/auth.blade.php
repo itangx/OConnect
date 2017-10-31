@@ -10,10 +10,14 @@
 <body>
     <div class="login-page">
       <div class="form">
-        <form class="login-form">
+        <form class="login-form" action="/login" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <p class="topic">OConnect</p><br>
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
+            <input type="text" name="username" placeholder="Username" value="{{ old('username') }}"/>
+            <input type="password" name="password" placeholder="Password" />
+            @if(isset($msg))
+            <p style="color:red">{{$msg}}</p>
+            @endif
             <button>login</button>
             <p class="message"><a href="#">Reset Password</a></p>
             <p class="message">Sign in to meet your partners!</p>

@@ -13,3 +13,4 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/activate', 'HomeController@activate');
+Route::post('/login', 'HomeController@auth');
