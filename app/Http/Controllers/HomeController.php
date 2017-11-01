@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
 	
 
+
 	public function index(){
 		return view('auth');
 	}
@@ -34,9 +35,10 @@ class HomeController extends Controller
 			return view('auth')->with('msg','Invalid username/password.');
 		}
 	}
-
+	
 	public function activated(Request $request)
 	{
+		
 		$username = $request->input('username') ;
 		$oldpassword = $request->input('oldpassword') ;
 		$newpassword1 = $request->input('newpassword1') ;
@@ -52,12 +54,13 @@ class HomeController extends Controller
 		}
 			if(isset($getData[0]) && $getData[0]->act_flg == 'I' && $newpassword1!= null && $newpassword2!= null && $newpassword1 == $newpassword2)
 		{
-			
+				
 			CorpPerRel::where('username',$username)
 					  ->where('password',$oldpassword)
 					  ->update([
 						'act_flg' => 'A',
-						'password' => $newpassword1
+						'password' => $newpassword1,
+						'update_by' => $username
 					]);
 			return view('activate')->with('msg','Activated successful');
 		}
@@ -66,4 +69,5 @@ class HomeController extends Controller
 			return view('activate')->with('msg','Invalid username/password.');
 		}
 	}
+	
 }
