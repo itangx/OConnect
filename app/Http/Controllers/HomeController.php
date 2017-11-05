@@ -29,7 +29,7 @@ class HomeController extends Controller
 
 		if(isset($getData[0]) && $getData[0]->act_flg == 'A')
 		{
-			return view('welcome');
+			return view('welcome')->with('user',$username);
 		} else 
 		{
 			return view('auth')->with('msg','Invalid username/password.');
