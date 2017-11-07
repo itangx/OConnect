@@ -8,7 +8,6 @@
     <title>Laravel</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{!! URL::asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/styleHome.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -16,8 +15,31 @@
     <script src="{!! URL::asset('js/bootstrap.js') !!}"></script>
     <!-- Styles -->
     <style>
+        @font-face {
+            font-family: sarabun;
+            src: url(font/THSarabunNew.ttf);
+        }
         html, body {
-            font-family: 'Raleway', sans-serif;
+            font-family: sarabun;
+        }
+        a:link {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:active {
+            text-decoration: none;
+            color: black;
         }
         .welcome-section{
             width: 90%;
@@ -40,29 +62,25 @@
             margin: 15px auto;
         }
         .section-title{
-            font-size: 28px;
-            font-weight: 800;
+            margin-bottom: 15px;
+            font-size: 40px;
+            font-weight: bold;
         }
         .cover{
             background: url('{!! URL::asset('img/world.jpeg') !!}') top center no-repeat;
             background-size: cover;
             min-height: 60vh;
         }
-        .card{
-            width:100%;
-            margin:10px 0;
-        }
         .card-img-container{
             width:100%;
             padding-bottom: 75%;
             position: relative;
-            background-color: #4a4a4a;
             overflow: hidden;
         }
         .logo{
             display: block;
-            height: 100%;
-            width: 100%;
+            height: 98%;
+            width: 98%;
             position: absolute;
             top: 0;
             left: 0;
@@ -74,11 +92,12 @@
             padding:10px 0;
         }
         .desc-title{
-            font-weight:600;
-            font-size:16px;
+            text-align: center;
+            font-weight:bold;
+            font-size:24px;
             overflow:hidden;
             display:-webkit-box;
-            color:#4a4a4a;
+            color:black;
             text-overflow:ellipsis;
             -webkit-box-orient:vertical;
             max-height:40px;
@@ -89,25 +108,77 @@
             padding: 4px 0;
         }
         .category-location{
-            font-size: 14px;
-            font-weight: 600;
-            padding-left: 4px;
+            margin: 0px 10px;
+            font-size: 18px; 
+            font-weight: normal;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            height:75pt;
+        }
+        .bg{
+            background-color: #f5f5f5;
+            border:1px solid #dddddd;
+            border-radius:4px;
+        }
+        .card{
+            margin-bottom: 15px;
+        }
+        header{
+            width:100%; 
+            background:#fafafa; 
+            height:60px; 
+            line-height:60px;
+            border-bottom:1px solid #dddddd;
+        }
+        footer{
+            width:100%; 
+            background:#fafafa; 
+            height:60px; 
+            line-height:60px;
+            border-top:1px solid #dddddd;
+        }
+        #cloud1{
+            animation-duration: 30s;
+            animation-name: slidein;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        #cloud2{
+            animation-duration: 30s;
+            animation-name: slideout;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        @keyframes slideout {
+            from {
+                margin-left: 25%;
+                width: 75px;
+            }
+
+            to {
+                margin-left: 65%;
+                width: 75px; 
+            }
+        }
+        @keyframes slidein {
+            from {
+                margin-left: 65%;
+                width: 75px; 
+            }
+
+            to {
+                margin-left: 25%;
+                width: 75px;
+            }
         }
     </style>
 </head>
 <body>
-    @include('header')
-
-    <!--<div class="cover"> 
-        <div class="welcome-section">
-            <div class="welcome-title">
-                Event is here
-            </div>
-            <div class="welcome-subtitle">
-                Find your passionate event
-            </div>
+    <header>
+        <div class="container">
+            OConnect
         </div>
-    </div>-->
+    </header>
     <div class="container">
         <div class="section-activity">
             <div class="section-title">
@@ -115,27 +186,43 @@
             </div>
             <div class="row">
                 @foreach ($event as $e)
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="card">
+                <div class="col-xs-12 col-sm-6 col-md-4 card">
+                    <a href="#">
+                        <div class="bg">
                             <div class="card-img-container">
                                 <img src="{!! URL::asset('img/logo.jpg') !!}" alt="logo" class="logo">
                             </div>
-                        </div>
-                        <div class="desc">
-                            <div class="desc-title">
-                                {{ $e->event_topic }}
-                            </div>
-                            <div class="category-section">
-                                <div class="category-location">
-                                    {{ $e->event_location }} {{ $e->event_addr }}
+                            <div class="desc">
+                                <div class="desc-title">
+                                    {{ $e->event_topic }}
+                                </div>
+                                <div class="category-section">
+                                    <div class="category-location">
+                                        {{ $e->event_description }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
                 @endforeach
             </div>
         </div>
     </div>
-    @include('footer')
+
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud1" style="width:80px;height:60px;margin-top:15px;" alt="cover">
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud2" style="width:80px;height:60px;margin-top:-30px;" alt="cover">
+    <img src="{!! URL::asset('img/cover3.png') !!}" alt="cover">
+
+    <footer>
+        <div class="container" style="text-align:center">
+            <center>
+                <img src="{!! URL::asset('img/ttt.png') !!}" style="width:60px;height:60px;margin-top:15px" alt="cover">
+                <img src="{!! URL::asset('img/facebook.png') !!}" style="width:60px;height:60px;margin-top:15px" alt="cover">
+                <img src="{!! URL::asset('img/twitter.png') !!}" style="width:60px;height:60px;margin-top:15px" alt="cover">
+            </center>
+            <center>©2017 All Rights Reserved | Design by itangx & falcon</center>
+        </div>
+    </footer>
 </body>
 </html>
