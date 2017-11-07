@@ -97,8 +97,8 @@
 </head>
 <body>
     @include('header')
-    
-    <div class="cover"> 
+
+    <!--<div class="cover"> 
         <div class="welcome-section">
             <div class="welcome-title">
                 Event is here
@@ -107,32 +107,32 @@
                 Find your passionate event
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="container">
         <div class="section-activity">
             <div class="section-title">
                 Event Active
             </div>
             <div class="row">
-                @for ($i = 0; $i < 10; $i++)
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="card">
-                        <div class="card-img-container">
-                            <img src="{!! URL::asset('img/logo.jpg') !!}" alt="logo" class="logo">
+                @foreach ($event as $e)
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="card">
+                            <div class="card-img-container">
+                                <img src="{!! URL::asset('img/logo.jpg') !!}" alt="logo" class="logo">
+                            </div>
                         </div>
-                    </div>
-                    <div class="desc">
-                        <div class="desc-title">
-                            Title
-                        </div>
-                        <div class="category-section">
-                            <div class="category-location">
-                                location + addr
+                        <div class="desc">
+                            <div class="desc-title">
+                                {{ $e->event_topic }}
+                            </div>
+                            <div class="category-section">
+                                <div class="category-location">
+                                    {{ $e->event_location }} {{ $e->event_addr }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div>
