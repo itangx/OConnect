@@ -129,8 +129,9 @@
             background:#fafafa; 
             height:60px; 
             line-height:60px;
-            border-bottom:1px solid #dddddd;
+            border-bottom:1px solid #dddddd;         
         }
+    
         footer{
             width:100%; 
             background:#fafafa; 
@@ -177,7 +178,7 @@
 <body>
     <header>
         <div class="container">
-            OConnect
+            <h1><a class="navbar-brand"><span>O</span>Connect</a></h1>
         </div>
     </header>
     <div class="container">

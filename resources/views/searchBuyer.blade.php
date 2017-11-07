@@ -80,7 +80,7 @@ footer{
 <body>
     <header>
         <div class="container">
-            OConnect
+        <h1><a class="navbar-brand"><span>O</span>Connect</a></h1>
         </div>
     </header>
 
