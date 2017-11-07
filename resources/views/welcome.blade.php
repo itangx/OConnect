@@ -21,6 +21,7 @@
         }
         html, body {
             font-family: sarabun;
+            background-color: #F4F8FB;
         }
         a:link {
             text-decoration: none;
@@ -187,7 +188,7 @@
             <div class="row">
                 @foreach ($event as $e)
                 <div class="col-xs-12 col-sm-6 col-md-4 card">
-                    <a href="#">
+                    <a href="/event/{{$e->event_id}}">
                         <div class="bg">
                             <div class="card-img-container">
                                 <img src="{!! URL::asset('img/logo.jpg') !!}" alt="logo" class="logo">

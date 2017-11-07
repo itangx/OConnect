@@ -15,3 +15,6 @@ Route::get('/', 'HomeController@index');
 Route::get('/activate', 'HomeController@activate');
 Route::post('/login', 'HomeController@auth');
 Route::post('/activated', 'HomeController@activated');
+
+Route::get('/event/{eventId}', 'EventController@index');
+Route::post('/event/{eventId}/search', 'EventController@search');
