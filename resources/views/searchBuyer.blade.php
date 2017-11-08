@@ -126,9 +126,6 @@ footer{
             <div class="desc">
                 <div class="title">
                     <center>    
-                    @if(isset($buyer))
-                        รายละเอียดผู้ที่สนใจเข้าร่วม
-                    @else
                         ค้นหาผู้ที่สนใจเข้าร่วม (ค้นหาได้ทั้งชื่อคนและชื่อบริษัท)
                         @foreach ($event as $e)
                         <form action="/event/{{$e->event_id}}/search" method="post">
@@ -137,7 +134,6 @@ footer{
                             <input type="text" name="criteria" style="width:50%">
                             <button type="submit"><img src="{!! URL::asset('img/search.png') !!}" style="width:20px;height:20px;" alt="cover"></button>
                         </form>
-                    @endif
                     </center>
                 </div>
             </div>
