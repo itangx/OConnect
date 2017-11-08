@@ -16,6 +16,16 @@ class EventController extends Controller
 
 	public function search($eventId,Request $request){
 		$event = Event::where('event_id',$eventId)->get();
+		$buyer = DB::table('SEARCH_BUYER')
+					->where('ID','=','2')
+					->where('person_name','like','%THA%')
+					->orWhere('corp_name','like','%นิล%')
+					// ->groupBy('person_name','corp_name','person_mob','person_email','corp_per_rel_id')	
+					// ->orderBy('ID')
+					->get();
+
+					
+
 		/*$buyer = DB::table('CORP_PER_REL')
                         ->leftJoin('PERSON_INFO','CORP_PER_REL.person_id', '=' , 'PERSON_INFO.person_id')
                         ->leftJoin('CORP_INFO','CORP_PER_REL.corp_id','=','CORP_INFO.corp_id')
@@ -32,6 +42,6 @@ class EventController extends Controller
                         ->where('CORP_INFO.corp_name','like','%นิล%')
                         ->get();*/
 
-		return view('searchBuyer')->with('event',$event);
+		return view('searchBuyer')->with('event',$event)->with('buyer',$buyer);
 	}
 }
