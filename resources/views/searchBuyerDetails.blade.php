@@ -141,7 +141,11 @@ th,td{
                                     <td>{{$b->person_mob}}</td>
                                     <td>{{$b->person_email}}</td>
                                     <td>{{$b->corp_name}}</td>
-                                    <td>{!! str_replace(',', '<br>', $b->DATE_DIFF_X) !!}</td>
+                                    @if($b->DATE_DIFF_X != '')
+                                        <td>{!! str_replace(',', '<br>', $b->DATE_DIFF_X) !!}</td>
+                                    @else
+                                        <td> ยังไม่ถูกจอง </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
