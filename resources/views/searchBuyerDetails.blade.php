@@ -117,39 +117,51 @@ th,td{
                                 <form action="/event/{{$e->event_id}}/search" method="post">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     @endforeach
-                                    <input type="text" name="criteria" style="width:50%">
+                                    <input type="text" name="criteria" value="{{$criteria}}" style="width:50%">
                                     <button type="submit"><img src="{!! URL::asset('img/search.png') !!}" style="width:20px;height:20px;" alt="cover"></button>
                                 </form>
                             </center>
                         </div>
-                        <table class="table">
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <th>#</th>
-                                    <th>ชื่อ</th>
-                                    <th>เบอร์โทร</th>
-                                    <th>อีเมล์</th>
-                                    <th>บริษัท</th>
-                                    <th>เวลาที่ถูกจองไว้แล้ว</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($buyer as $b)
-                                <tr>
-                                    <td scope="row">{{ $loop->iteration }}</td>
-                                    <td>{{$b->person_name}}</td>
-                                    <td>{{$b->person_mob}}</td>
-                                    <td>{{$b->person_email}}</td>
-                                    <td>{{$b->corp_name}}</td>
-                                    @if($b->DATE_DIFF_X != '')
-                                        <td>{!! str_replace(',', '<br>', $b->DATE_DIFF_X) !!}</td>
-                                    @else
-                                        <td> ยังไม่ถูกจอง </td>
-                                    @endif
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        @if(isset($buyer[0]))
+                            <table class="table">
+                                <thead class="thead-inverse">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ชื่อ</th>
+                                        <th>เบอร์โทร</th>
+                                        <th>อีเมล์</th>
+                                        <th>บริษัท</th>
+                                        <th>เวลาที่ถูกจองไว้แล้ว</th>
+                                        <th>จองเวลา</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                    $parameter= Crypt::encrypt($criteria)
+                                ?>
+                                @foreach ($buyer as $b)
+                                    <tr>
+                                        <td scope="row">{{ $loop->iteration }}</td>
+                                        <td>{{$b->person_name}}</td>
+                                        <td>{{$b->person_mob}}</td>
+                                        <td>{{$b->person_email}}</td>
+                                        <td>{{$b->corp_name}}</td>
+                                        @if($b->DATE_DIFF_X != '')
+                                            <td>{!! str_replace(',', '<br>', $b->DATE_DIFF_X) !!}</td>
+                                        @else
+                                            <td> ยังไม่ถูกจอง </td>
+                                        @endif
+                                        
+                                        <td><a href="/event/appointment/{{$parameter}}/{{$b->corp_per_rel_id}}"><img src="{!! URL::asset('img/datetime.png') !!}" style="width:20px;height:20px;" alt="cover"></a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <center style="padding-top:15px;">
+                                <span style="font-size:20px;">ไม่พบผู้ที่สนใจเข้าร่วม</span>
+                            <center>
+                        @endif
                     </div>
                 </div>
             </div>

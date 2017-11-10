@@ -42,6 +42,7 @@ class HomeController extends Controller
 							  ->orderBy('EVENT_INFO.create_dttm','desc')
 							  ->get() ;
 
+			$request->session()->put('user', $getData);
 			return view('welcome')->with('event',$event);
 		} else 
 		{
