@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Oconnect</title>
     
     <!-- Fonts -->
     <link href="{!! URL::asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
@@ -37,6 +37,40 @@ footer{
     line-height:60px;
     border-top:1px solid #dddddd;
 }
+#cloud1{
+            animation-duration: 30s;
+            animation-name: slidein;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        #cloud2{
+            animation-duration: 30s;
+            animation-name: slideout;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        @keyframes slideout {
+            from {
+                margin-left: 25%;
+                width: 75px;
+            }
+
+            to {
+                margin-left: 65%;
+                width: 75px; 
+            }
+        }
+        @keyframes slidein {
+            from {
+                margin-left: 65%;
+                width: 75px; 
+            }
+
+            to {
+                margin-left: 25%;
+                width: 75px;
+            }
+        }
 .bg{
     background-color: #f5f5f5;
     border:1px solid #dddddd;
@@ -80,7 +114,7 @@ footer{
 <body>
     <header>
         <div class="container">
-        <h1><a class="navbar-brand"><span>O</span>Connect</a></h1>
+        <h1><a class="navbar-brand" href="/"><span>O</span>Connect</a></h1>
         </div>
     </header>
 
@@ -139,7 +173,9 @@ footer{
             </div>
         </div>
     </div>
-    
+        <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud1" style="width:80px;height:60px;margin-top:15px;" alt="cover">
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud2" style="width:80px;height:60px;margin-top:-30px;" alt="cover">
+    <img src="{!! URL::asset('img/cover3.png') !!}" alt="cover">
     <footer>
         <div class="container" style="text-align:center">
             <center>
