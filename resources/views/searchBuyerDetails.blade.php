@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Oconnect</title>
     
     <!-- Fonts -->
     <link href="{!! URL::asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="{!! URL::asset('js/bootstrap.js') !!}"></script>
+    
     <!-- Styles -->
     <style>
         @font-face {
@@ -22,6 +23,7 @@
 html, body {
     font-family: sarabun;
     background-color: #F4F8FB;
+    font-size:22px;
 }
 header{
     width:100%; 
@@ -37,6 +39,40 @@ footer{
     line-height:60px;
     border-top:1px solid #dddddd;
 }
+#cloud1{
+            animation-duration: 30s;
+            animation-name: slidein;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        #cloud2{
+            animation-duration: 30s;
+            animation-name: slideout;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        @keyframes slideout {
+            from {
+                margin-left: 25%;
+                width: 75px;
+            }
+
+            to {
+                margin-left: 65%;
+                width: 75px; 
+            }
+        }
+        @keyframes slidein {
+            from {
+                margin-left: 65%;
+                width: 75px; 
+            }
+
+            to {
+                margin-left: 25%;
+                width: 75px;
+            }
+        }
 .bg{
     background-color: #f5f5f5;
     border:1px solid #dddddd;
@@ -49,7 +85,7 @@ footer{
     overflow: hidden;
 }
 .desc{
-    padding: 15px;
+    padding: 24px;
 }
 .title{
     font-size: 30px;
@@ -77,13 +113,56 @@ footer{
 }
 th,td{
     text-align: center;
+}@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 1%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "บริษัท"; }
+	td:nth-of-type(2):before { content: "จองเวลา"; }
+}
 }
 </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1><a class="navbar-brand"><span>O</span>Connect</a></h1>
+            <h1><a class="navbar-brand" href="/"><span>O</span>Connect</a></h1>
         </div>
     </header>
 
@@ -126,13 +205,10 @@ th,td{
                             <table class="table">
                                 <thead class="thead-inverse">
                                     <tr>
-                                        <th>#</th>
-                                        <th>ชื่อ</th>
-                                        <th>เบอร์โทร</th>
-                                        <th>อีเมล์</th>
+                                    
                                         <th>บริษัท</th>
-                                        <th>เวลาที่ถูกจองไว้แล้ว</th>
                                         <th>จองเวลา</th>
+                                                                  
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -141,18 +217,21 @@ th,td{
                                 ?>
                                 @foreach ($buyer as $b)
                                     <tr>
-                                        <td scope="row">{{ $loop->iteration }}</td>
-                                        <td>{{$b->person_name}}</td>
-                                        <td>{{$b->person_mob}}</td>
-                                        <td>{{$b->person_email}}</td>
+                                       
+                                        
                                         <td>{{$b->corp_name}}</td>
-                                        @if($b->DATE_DIFF_X != '')
+                                        <td><a href="/event/appointment/{{$parameter}}/{{$b->corp_per_rel_id}}"><img src="{!! URL::asset('img/datetime.png') !!}" style="width:20px;height:20px;" alt="cover"></a></td>
+                                        <!-- <td scope="row">{{ $loop->iteration }}</td> -->
+                                        <!-- <td>{{$b->person_name}}</td>
+                                        <td>{{$b->person_mob}}</td>
+                                        <td>{{$b->person_email}}</td> -->
+                                        <!-- @if($b->DATE_DIFF_X != '')
                                             <td>{!! str_replace(',', '<br>', $b->DATE_DIFF_X) !!}</td>
                                         @else
                                             <td> ยังไม่ถูกจอง </td>
-                                        @endif
+                                        @endif -->
                                         
-                                        <td><a href="/event/appointment/{{$parameter}}/{{$b->corp_per_rel_id}}"><img src="{!! URL::asset('img/datetime.png') !!}" style="width:20px;height:20px;" alt="cover"></a></td>
+                                       
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -168,7 +247,9 @@ th,td{
         </div>
 
     </div>
-    
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud1" style="width:80px;height:60px;margin-top:15px;" alt="cover">
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud2" style="width:80px;height:60px;margin-top:-30px;" alt="cover">
+    <img src="{!! URL::asset('img/cover3.png') !!}" alt="cover">
     <footer>
         <div class="container" style="text-align:center">
             <center>

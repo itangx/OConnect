@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Oconnect</title>
     
     <!-- Fonts -->
     <link href="{!! URL::asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/styleHome.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/bootstrap-datetimepicker.min.css') !!}" rel="stylesheet" type="text/css" media="all" />
+ 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="{!! URL::asset('js/jquery-3.2.1.min.js') !!}"></script>
     <script src="{!! URL::asset('js/moment.min.js') !!}"></script>
     <script src="{!! URL::asset('js/bootstrap-datetimepicker.min.js') !!}"></script>
+ 
     <!-- Styles -->
     <style>
         @font-face {
@@ -24,6 +26,8 @@
     html, body {
         font-family: sarabun;
         background-color: #F4F8FB;
+        font-size:22px;
+}
     }
     header{
         width:100%; 
@@ -39,6 +43,40 @@
         line-height:60px;
         border-top:1px solid #dddddd;
     }
+    #cloud1{
+            animation-duration: 30s;
+            animation-name: slidein;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        #cloud2{
+            animation-duration: 30s;
+            animation-name: slideout;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        @keyframes slideout {
+            from {
+                margin-left: 25%;
+                width: 75px;
+            }
+
+            to {
+                margin-left: 65%;
+                width: 75px; 
+            }
+        }
+        @keyframes slidein {
+            from {
+                margin-left: 65%;
+                width: 75px; 
+            }
+
+            to {
+                margin-left: 25%;
+                width: 75px;
+            }
+        }
     .bg{
         background-color: #f5f5f5;
         border:1px solid #dddddd;
@@ -79,13 +117,59 @@
     }
     th,td{
         text-align: center;
-    }
+    }@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 2px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: -3px;
+		left: 1px;
+		width: 1%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "#"; }
+	td:nth-of-type(2):before { content: "ชื่อ"; }
+	td:nth-of-type(3):before { content: "เบอร์โทร"; }
+	td:nth-of-type(4):before { content: "อีเมล์"; }
+	td:nth-of-type(5):before { content: "บริษัท"; }
+	td:nth-of-type(6):before { content: "เวลาที่ถูกจองไว้แล้ว"; }
+}
 </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1><a class="navbar-brand"><span>O</span>Connect</a></h1>
+            <h1><a class="navbar-brand" href="/"><span>O</span>Connect</a></h1>
         </div>
     </header>
 
@@ -112,6 +196,10 @@
                                 </form>
                             </center>
                             <br>
+                        </div>
+                        <div id="dp">
+                            
+                        
                         </div>
                         <table class="table">
                             <thead class="thead-inverse">
@@ -146,7 +234,9 @@
         </div>
 
     </div>
-    
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud1" style="width:80px;height:60px;margin-top:15px;" alt="cover">
+    <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud2" style="width:80px;height:60px;margin-top:-30px;" alt="cover">
+    <img src="{!! URL::asset('img/cover3.png') !!}" alt="cover">
     <footer>
         <div class="container" style="text-align:center">
             <center>
