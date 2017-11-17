@@ -11,11 +11,12 @@
     <link href="{!! URL::asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/styleHome.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/bootstrap-datetimepicker.min.css') !!}" rel="stylesheet" type="text/css" media="all" />
- 
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="{!! URL::asset('js/jquery-3.2.1.min.js') !!}"></script>
     <script src="{!! URL::asset('js/moment.min.js') !!}"></script>
     <script src="{!! URL::asset('js/bootstrap-datetimepicker.min.js') !!}"></script>
+
  
     <!-- Styles -->
     <style>
@@ -115,11 +116,17 @@
     .ffacebook{
         font-size: 24px;
     }
+
+    .day{
+        background-color: #B2FF59;
+        border-radius: 0;
+    }
+
     th,td{
         text-align: center;
     }@media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
+        only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px)  {
 
 	/* Force table to not be like tables anymore */
 	table, thead, tbody, th, td, tr { 
@@ -153,7 +160,7 @@ only screen and (max-width: 760px),
 		padding-right: 10px; 
 		white-space: nowrap;
 	}
-	
+
 	/*
 	Label the data
 	*/
@@ -186,12 +193,15 @@ only screen and (max-width: 760px),
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="hidden" name="rel" value="{{$b->corp_per_rel_id}}">
                                     <input type="hidden" id="criteria" name="criteria" value="{{$criteria}}">
+                                    @foreach ($event as $e)
+                                    <input type="hidden" name="eid" value="{{$e->event_id}}">
+                                    @endforeach
                                     <input type="hidden" id="stddt" name="stddt" value="">
                                     <input type="hidden" id="enddt" name="enddt" value="">
                                     <span style="font-size:20px">เริ่ม</span>
-                                    <input type="text" value="" id="stdDatetime" name="stdDatetime" required="true" class="form_datetime1">
+                                    <input type="text" value="" id="stdDatetime" name="stdDatetime" required="true" class="form_datetime1" readonly="true">
                                     <span style="font-size:20px">ถึง</span>
-                                    <input type="text" value="" id="endDatetime" name="endDatetime" disabled required="true" class="form_datetime2">
+                                    <input type="text" value="" id="endDatetime" name="endDatetime" disabled required="true" class="form_datetime2" readonly="true">
                                     <button type="submit"><img src="{!! URL::asset('img/click.png') !!}" style="width:20px;height:20px;" alt="cover"></button>
                                 </form>
                             </center>
@@ -249,11 +259,19 @@ only screen and (max-width: 760px),
     </footer>
 </div>
 </body>
+@foreach ($event as $e)
 <script type="text/javascript">
-    var date = new Date();
-    date.setDate(date.getDate());
+    var stddate = new Date("{{$e->event_std_date}}");
+    var enddate = new Date("{{$e->event_end_date}}");
 
-    $(".form_datetime1").datetimepicker({format: 'dd/mm/yyyy hh:ii', autoclose:true}).on('changeDate', function(ev){
+    $(".form_datetime1").datetimepicker({
+        startDate: stddate, 
+        endDate: enddate,
+        format: 'dd/mm/yyyy hh:ii', 
+        minuteStep: 30,
+        disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23, 24], 
+        autoclose:true}
+    ).on('changeDate', function(ev){
         var minDate = new Date(ev.date.valueOf());
         var stdDatetime = moment(minDate).format('YYYY-MM-DD HH:mm') ;
         $.ajax({
@@ -278,18 +296,28 @@ only screen and (max-width: 760px),
             }
         });      
     });
-    $(".form_datetime2").datetimepicker({startDate: date,format: 'dd/mm/yyyy hh:ii', autoclose:true}).on('changeDate', function(ev){
+    $(".form_datetime2").datetimepicker({
+        startDate: stddate, 
+        endDate: enddate, 
+        format: 'dd/mm/yyyy hh:ii', 
+        minuteStep: 30, 
+        autoclose:true}
+    ).on('changeDate', function(ev){
         var maxDate = new Date(ev.date.valueOf());
         var endDatetime = moment(maxDate).format('YYYY-MM-DD HH:mm') ;
+        var stdDatetime = moment($('#stddt').val()).format('YYYY-MM-DD HH:mm') ;
+
         $.ajax({
             type: 'POST',
             url:'/checkDate',
             data: {
+                stdDatetime: stdDatetime,
                 endDatetime: endDatetime,
                 check: 'end',
                 _token: "{{csrf_token()}}"
             },
             success:function(result){
+                console.log(result);
                 if(result == ''){
                     $('#enddt').val(endDatetime);
                     $('.form_datetime1').datetimepicker('setEndDate', maxDate);
@@ -302,4 +330,5 @@ only screen and (max-width: 760px),
     });
 
 </script>
+@endforeach
 </html>

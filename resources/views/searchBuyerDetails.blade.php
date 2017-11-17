@@ -220,7 +220,7 @@ only screen and (max-width: 760px),
                                        
                                         
                                         <td>{{$b->corp_name}}</td>
-                                        <td><a href="/event/appointment/{{$parameter}}/{{$b->corp_per_rel_id}}"><img src="{!! URL::asset('img/datetime.png') !!}" style="width:20px;height:20px;" alt="cover"></a></td>
+                                        <td><a href="/event/appointment/{{$parameter}}/{{$e->event_id}}/{{$b->corp_per_rel_id}}"><img src="{!! URL::asset('img/datetime.png') !!}" style="width:20px;height:20px;" alt="cover"></a></td>
                                         <!-- <td scope="row">{{ $loop->iteration }}</td> -->
                                         <!-- <td>{{$b->person_name}}</td>
                                         <td>{{$b->person_mob}}</td>

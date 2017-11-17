@@ -31,7 +31,8 @@ class EventController extends Controller
 		return view('searchBuyerDetails')->with('event',$event)->with('buyer',$buyer)->with('criteria',$criteria);
 	}
 
-	public function appointment($criteria, $cprId, Request $request){
+	public function appointment($criteria, $eventId, $cprId, Request $request){
+		$event = Event::where('event_id',$eventId)->get();
 		$criteria = Crypt::decrypt($criteria);
 		$buyer = DB::table('SEARCH_BUYER')
 					->where('ID','=','2')
@@ -44,10 +45,11 @@ class EventController extends Controller
 					->where('corp_per_rel_id','=',$cprId)
 					->get();
 
-		return view('appointment')->with('buyer',$buyer)->with('criteria',$criteria);
+		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria);
 	}
 
 	public function insert(Request $request){
+		$event = Event::where('event_id',$request->input('eid'))->get();
 		$appt_topic = $request->input('appt_topic');
 		$appt_when_std_dttm = $request->input('stddt');
 		$appt_when_end_dttm = $request->input('enddt');
@@ -83,7 +85,7 @@ class EventController extends Controller
 					->where('corp_per_rel_id','=',$corp_per_rel_id)
 					->get();
 
-		return view('appointment')->with('buyer',$buyer)->with('criteria',$criteria);
+		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria);
 	}
 
 	public function checkDate(Request $request){
@@ -93,14 +95,24 @@ class EventController extends Controller
 
 		if($check == 'start'){
 			$result = DB::table('appt_match')
-						->where('appt_when_std_dttm','=',$appt_when_std_dttm)
+						->where('appt_when_std_dttm','<=',$appt_when_std_dttm)
+						->where('appt_when_end_dttm','>=',$appt_when_std_dttm)
 						->get();
 			return $result ;
 		} else if($check == 'end') {
 			$result = DB::table('appt_match')
-						->where('appt_when_end_dttm','=',$appt_when_end_dttm)
+						->where('appt_when_std_dttm','<=',$appt_when_end_dttm)
+						->where('appt_when_end_dttm','>=',$appt_when_end_dttm)
 						->get();
-			return $result ;
+
+			if(isset($result)){
+				$result = DB::table('appt_match')
+						->where('appt_when_std_dttm','<=',$appt_when_std_dttm)
+						->where('appt_when_end_dttm','>=',$appt_when_end_dttm)
+						->get();
+			}
+
+			return $result ;		
 		}
 	}
 }

@@ -18,7 +18,7 @@ Route::post('/activated', 'HomeController@activated');
 
 Route::get('/event/{eventId}', 'EventController@index');
 Route::post('/event/{eventId}/search', 'EventController@search');
-Route::get('/event/appointment/{criteria}/{cprId}', 'EventController@appointment');
+Route::get('/event/appointment/{criteria}/{eventId}/{cprId}', 'EventController@appointment');
 Route::post('/event/appointment', 'EventController@insert');
 
 Route::post('checkDate', 'EventController@checkDate');
