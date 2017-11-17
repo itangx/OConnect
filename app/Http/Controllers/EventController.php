@@ -33,7 +33,14 @@ class EventController extends Controller
 
 	public function appointment($criteria, $eventId, $cprId, Request $request){
 		$event = Event::where('event_id',$eventId)->get();
+
+		$appt = DB::table('appt_match')
+					->where('appt_tar_id','=',$cprId)
+					->orderBy('appt_when_std_dttm', 'asc')
+					->get();
+
 		$criteria = Crypt::decrypt($criteria);
+		
 		$buyer = DB::table('SEARCH_BUYER')
 					->where('ID','=','2')
 					->where(function ($query) use ($criteria) {
@@ -45,7 +52,7 @@ class EventController extends Controller
 					->where('corp_per_rel_id','=',$cprId)
 					->get();
 
-		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria);
+		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria)->with('appt',$appt);
 	}
 
 	public function insert(Request $request){
@@ -73,7 +80,11 @@ class EventController extends Controller
 					   'update_by' => $user[0]->username
 					  ]
 				  );
-
+		$appt = DB::table('appt_match')
+					->where('appt_tar_id','=',$corp_per_rel_id)
+					->orderBy('appt_when_std_dttm', 'asc')
+					->get();
+				  
 		$buyer = DB::table('SEARCH_BUYER')
 					->where('ID','=','2')
 					->where(function ($query) use ($criteria) {
@@ -85,7 +96,7 @@ class EventController extends Controller
 					->where('corp_per_rel_id','=',$corp_per_rel_id)
 					->get();
 
-		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria);
+		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria)->with('appt',$appt);
 	}
 
 	public function checkDate(Request $request){

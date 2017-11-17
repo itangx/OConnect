@@ -11,11 +11,14 @@
     <link href="{!! URL::asset('css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/styleHome.css') !!}" rel="stylesheet" type="text/css" media="all" />
     <link href="{!! URL::asset('css/bootstrap-datetimepicker.min.css') !!}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{!! URL::asset('css/fullcalendar.min.css') !!}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{!! URL::asset('css/fullcalendar.print.min.css') !!}" rel="stylesheet" type="text/css" media='print' />
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="{!! URL::asset('js/jquery-3.2.1.min.js') !!}"></script>
     <script src="{!! URL::asset('js/moment.min.js') !!}"></script>
     <script src="{!! URL::asset('js/bootstrap-datetimepicker.min.js') !!}"></script>
+    <script src="{!! URL::asset('js/fullcalendar.min.js') !!}"></script>
 
  
     <!-- Styles -->
@@ -239,10 +242,12 @@
                         </table>
                         @endforeach
                     </div>
+
+                    <div id='calendar' style="padding:15px"></div>
+
                 </div>
             </div>
         </div>
-
     </div>
     <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud1" style="width:80px;height:60px;margin-top:15px;" alt="cover">
     <img src="{!! URL::asset('img/cloud.png') !!}" id="cloud2" style="width:80px;height:60px;margin-top:-30px;" alt="cover">
@@ -329,6 +334,30 @@
         });       
     });
 
+    $('#calendar').fullCalendar({
+        header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'agendaWeek'
+        },
+        views: {
+            agendaWeek: {
+                allDaySlot: false,
+                scrollTime: '00:00:00'
+            }
+        },
+        defaultView: 'agendaWeek',
+        defaultDate: moment('{{$e->event_std_date}}'),
+        events: [
+            @foreach ($appt as $a)
+                {
+                    title: 'Meeting',
+                    start: '{{$a->appt_when_std_dttm}}',
+                    end: '{{$a->appt_when_end_dttm}}'
+                },
+            @endforeach
+        ]
+    });
 </script>
 @endforeach
 </html>
