@@ -11,12 +11,12 @@ class EventController extends Controller
 {
 	
 	public function index($eventId){
-		$event = Event::where('event_id',$eventId)->get();
+		$event = Event::where('EVENT_ID',$eventId)->get();
 		return view('searchBuyer')->with('event',$event);
 	}
 
 	public function search($eventId,Request $request){
-		$event = Event::where('event_id',$eventId)->get();
+		$event = Event::where('EVENT_ID',$eventId)->get();
 		$criteria = $request->input('criteria');
 
 		$buyer = DB::table('SEARCH_BUYER')
@@ -32,9 +32,9 @@ class EventController extends Controller
 	}
 
 	public function appointment($criteria, $eventId, $cprId, Request $request){
-		$event = Event::where('event_id',$eventId)->get();
+		$event = Event::where('EVENT_ID',$eventId)->get();
 
-		$appt = DB::table('appt_match')
+		$appt = DB::table('APPT_MATCH')
 					->where('appt_tar_id','=',$cprId)
 					->orderBy('appt_when_std_dttm', 'asc')
 					->get();
@@ -56,7 +56,7 @@ class EventController extends Controller
 	}
 
 	public function insert(Request $request){
-		$event = Event::where('event_id',$request->input('eid'))->get();
+		$event = Event::where('EVENT_ID',$request->input('eid'))->get();
 		$appt_topic = $request->input('appt_topic');
 		$appt_when_std_dttm = $request->input('stddt');
 		$appt_when_end_dttm = $request->input('enddt');
@@ -65,7 +65,7 @@ class EventController extends Controller
 		$criteria = $request->input('criteria');
 		$user = $request->session()->get('user');
 
-		$insert = DB::table('appt_match')
+		$insert = DB::table('APPT_MATCH')
 				  ->insert(
 					  ['appt_topic' => 'ทดสอบ',
 					   'appt_when_std_dttm' => $appt_when_std_dttm,
@@ -80,7 +80,7 @@ class EventController extends Controller
 					   'update_by' => $user[0]->username
 					  ]
 				  );
-		$appt = DB::table('appt_match')
+		$appt = DB::table('APPT_MATCH')
 					->where('appt_tar_id','=',$corp_per_rel_id)
 					->orderBy('appt_when_std_dttm', 'asc')
 					->get();
@@ -105,19 +105,19 @@ class EventController extends Controller
 		$check = $request->input('check');
 
 		if($check == 'start'){
-			$result = DB::table('appt_match')
+			$result = DB::table('APPT_MATCH')
 						->where('appt_when_std_dttm','<=',$appt_when_std_dttm)
 						->where('appt_when_end_dttm','>=',$appt_when_std_dttm)
 						->get();
 			return $result ;
 		} else if($check == 'end') {
-			$result = DB::table('appt_match')
+			$result = DB::table('APPT_MATCH')
 						->where('appt_when_std_dttm','<=',$appt_when_end_dttm)
 						->where('appt_when_end_dttm','>=',$appt_when_end_dttm)
 						->get();
 
 			if(isset($result)){
-				$result = DB::table('appt_match')
+				$result = DB::table('APPT_MATCH')
 						->where('appt_when_std_dttm','<=',$appt_when_std_dttm)
 						->where('appt_when_end_dttm','>=',$appt_when_end_dttm)
 						->get();
