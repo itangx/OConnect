@@ -127,7 +127,9 @@
 
     th,td{
         text-align: center;
-    }@media 
+    }
+    
+    @media 
         only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px)  {
 
@@ -214,7 +216,7 @@
                             
                         
                         </div>
-                        <table class="table">
+                        <!-- <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
                                     <th>#</th>
@@ -239,7 +241,7 @@
                                     @endif
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
                         @endforeach
                     </div>
 
