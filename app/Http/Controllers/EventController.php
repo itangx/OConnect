@@ -52,7 +52,7 @@ class EventController extends Controller
 					->where('corp_per_rel_id','=',$cprId)
 					->get();
 
-		return view('appointment')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria)->with('appt',$appt);
+		return view('appointment2')->with('buyer',$buyer)->with('event',$event)->with('criteria',$criteria)->with('appt',$appt);
 	}
 
 	public function insert(Request $request){
@@ -125,5 +125,9 @@ class EventController extends Controller
 
 			return $result ;		
 		}
+	}
+
+	public function appointment3(Request $request){
+		return view('appointment3');
 	}
 }

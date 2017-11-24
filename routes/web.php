@@ -22,3 +22,4 @@ Route::get('/event/appointment/{criteria}/{eventId}/{cprId}', 'EventController@a
 Route::post('/event/appointment', 'EventController@insert');
 
 Route::post('checkDate', 'EventController@checkDate');
+Route::get('/appointment3', 'EventController@appointment3');
